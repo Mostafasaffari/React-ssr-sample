@@ -4,7 +4,7 @@
   "description": "This is a sample project that I have created for help someone who want to know what SSR is and how RenderToNodeStream and hydration work together.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server"
   },
   "repository": {
     "type": "git",
@@ -47,5 +47,8 @@
     "webpack-cli": "^3.3.7",
     "webpack-merge": "^4.2.2",
     "webpackbar": "^4.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
