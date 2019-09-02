@@ -1,14 +1,16 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { StaticRouter, Route } from "react-router-dom";
 import Routes from "../../routes";
 import "./style.scss";
 
-interface IProps {}
+interface IProps {
+  request: any;
+}
 const App: React.FC<IProps> = props => {
   return (
-    <BrowserRouter>
+    <StaticRouter location={props.request.url}>
       <Route component={Routes} />
-    </BrowserRouter>
+    </StaticRouter>
   );
 };
 export default App;
