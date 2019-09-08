@@ -4,7 +4,7 @@ import Routes from "../../routes";
 import "./style.scss";
 
 interface IProps {
-  request: any;
+  request: Request;
 }
 const App: React.FC<IProps> = props => {
   return (
