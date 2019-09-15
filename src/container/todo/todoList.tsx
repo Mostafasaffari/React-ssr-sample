@@ -8,6 +8,7 @@ const TodoList: IDefaultProps<IProps> = props => {
 };
 
 TodoList.initialData = () => {
+  console.log("run initial Data");
   return { hello: "ddd" };
 };
 
