@@ -12,16 +12,18 @@ const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
 const appDirectory = fs.realpathSync(process.cwd());
-const appSrc = path.resolve(appDirectory, "src");
-const buildRoot = path.resolve(appDirectory, "build");
+const appSrcPath = path.resolve(appDirectory, "src");
+const buildPath = path.resolve(appDirectory, "build");
+const dotenvPath = path.resolve(appDirectory, ".env");
+const appHtmlPath = path.resolve(appDirectory, "public/index.html");
 
 //#region Env is Recognized
 const NODE_ENV = process.env.NODE_ENV;
 var dotenvFiles = [
-  `${paths.dotenv}.${NODE_ENV}.local`,
-  `${paths.dotenv}.${NODE_ENV}`,
-  NODE_ENV !== "test" && `${paths.dotenv}.local`,
-  paths.dotenv
+  `${dotenvPath}.${NODE_ENV}.local`,
+  `${dotenvPath}.${NODE_ENV}`,
+  NODE_ENV !== "test" && `${dotenvPath}.local`,
+  dotenvPath
 ].filter(Boolean);
 dotenvFiles.forEach(dotenvFile => {
   if (fs.existsSync(dotenvFile)) {
@@ -69,13 +71,8 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
       options: cssOptions
     },
     {
-      // Options for PostCSS as we reference these options twice
-      // Adds vendor prefixing based on your specified browser support in
-      // package.json
       loader: require.resolve("postcss-loader"),
       options: {
-        // Necessary for external CSS imports to work
-        // https://github.com/facebook/create-react-app/issues/2677
         ident: "postcss",
         plugins: () => [
           require("postcss-flexbugs-fixes"),
@@ -138,7 +135,7 @@ const baseConfig = {
             loader: require.resolve("eslint-loader")
           }
         ],
-        include: appSrc
+        include: appSrcPath
       },
       {
         oneOf: [
@@ -225,8 +222,6 @@ const baseConfig = {
             ),
             sideEffects: true
           },
-          // Adds support for CSS Modules, but using SASS
-          // using the extension .module.scss or .module.sass
           {
             test: /\.module\.(scss|sass)$/,
             use: getStyleLoaders(
@@ -295,8 +290,8 @@ module.exports = () => [
           {},
           {
             inject: "head",
-            template: paths.appHtml,
-            filename: `${buildRoot}/index.html`
+            template: appHtmlPath,
+            filename: `${buildPath}/index.html`
           },
           isEnvProduction
             ? {
