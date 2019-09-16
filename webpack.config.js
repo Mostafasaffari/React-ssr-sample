@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const WebpackBar = require("webpackbar");
@@ -15,7 +17,6 @@ const appDirectory = fs.realpathSync(process.cwd());
 const appSrcPath = path.resolve(appDirectory, "src");
 const buildPath = path.resolve(appDirectory, "build");
 const dotenvPath = path.resolve(appDirectory, ".env");
-const appHtmlPath = path.resolve(appDirectory, "public/index.html");
 
 //#region Env is Recognized
 const NODE_ENV = process.env.NODE_ENV;
@@ -97,7 +98,6 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   }
   return loaders;
 };
-
 const baseConfig = {
   context: path.resolve(__dirname, "src"),
   devtool: "(none)",
@@ -110,6 +110,7 @@ const baseConfig = {
   },
   output: {
     chunkFilename: "[name].[contenthash].js",
+    publicPath: `/static/ssr/`,
     path: path.resolve(__dirname, "build", "static")
   },
   resolve: {
@@ -280,9 +281,7 @@ module.exports = () => [
     name: "client",
     entry: "./ssr/client.tsx",
     output: {
-      filename: isEnvProduction
-        ? "[name].[contenthash:8].js"
-        : isEnvDevelopment && "bundle.js"
+      filename: "[name].[contenthash:8].js"
     },
     plugins: [
       new HtmlWebpackPlugin(
@@ -290,25 +289,23 @@ module.exports = () => [
           {},
           {
             inject: "head",
-            template: appHtmlPath,
+            template: "index.html",
             filename: `${buildPath}/index.html`
           },
-          isEnvProduction
-            ? {
-                minify: {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true
-                }
-              }
-            : undefined
+          {
+            minify: {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true
+            }
+          }
         )
       ),
       new ScriptExtHtmlWebpackPlugin({

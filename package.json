@@ -4,7 +4,22 @@
   "description": "This is a sample project that I have created for help someone who want to know what SSR is and how RenderToNodeStream and hydration work together.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server"
+    "build": "rm -rf build && webpack --display-error-details --define process.env.NODE_ENV=production -p && cp src/server.js build/server.js && node build/server"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "repository": {
     "type": "git",
@@ -45,6 +60,7 @@
     "url-loader": "^2.1.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2",
     "webpackbar": "^4.0.0"
   },
@@ -60,6 +76,7 @@
     "eslint-loader": "^3.0.0",
     "express": "^4.17.1",
     "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "react": "^16.9.0",
     "react-dev-utils": "^9.0.3",
