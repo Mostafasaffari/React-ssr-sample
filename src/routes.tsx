@@ -14,6 +14,7 @@ const Routes: React.FC<IProps> = () => {
       {routes.map(route => (
         <Route {...route} />
       ))}
+      <Route component={() => <div>404 Not Found!!</div>} />
     </Switch>
   );
 };
