@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import TodoList from "./container/todo/todoList";
 
 interface IProps {}
 const Routes: React.FC<IProps> = () => {
   const routes = [
     {
       path: "/",
-      component: () => <div>Hello SSR</div>
+      component: TodoList
     }
   ];
   return (

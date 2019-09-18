@@ -114,7 +114,7 @@ const baseConfig = {
     path: path.resolve(__dirname, "build", "static")
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
   module: {
     strictExportPresence: true,
@@ -155,6 +155,18 @@ const baseConfig = {
               customize: require.resolve(
                 "babel-preset-react-app/webpack-overrides"
               ),
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    targets: {
+                      node: true
+                    }
+                  }
+                ],
+                "@babel/preset-react",
+                "@babel/preset-typescript"
+              ],
               plugins: [
                 [
                   require.resolve("babel-plugin-named-asset-import"),
@@ -164,7 +176,8 @@ const baseConfig = {
                         ReactComponent: "@svgr/webpack?-svgo,+ref![path]"
                       }
                     }
-                  }
+                  },
+                  "@babel/plugin-syntax-dynamic-import"
                 ]
               ],
               cacheDirectory: true,
