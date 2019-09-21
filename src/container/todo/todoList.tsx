@@ -2,11 +2,18 @@ import React from "react";
 import { IDefaultProps } from "../../interfaces/IDefaultProps";
 
 interface IProps {
-  hello?: string;
+  staticContext?: { initialServerData: { hello?: string } };
 }
 const TodoList: IDefaultProps<IProps> = props => {
-  console.log(props.hello);
-  return <div>TodoList</div>;
+  let initialServerData;
+  if (props.staticContext && props.staticContext.initialServerData) {
+    initialServerData = props.staticContext.initialServerData.hello;
+  } else {
+    initialServerData =
+      typeof window !== "undefined" ? window.__initialServerData__.hello : null;
+  }
+  console.log(initialServerData);
+  return <div>TodoList{initialServerData}</div>;
 };
 
 TodoList.initialData = () => {

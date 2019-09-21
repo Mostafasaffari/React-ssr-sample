@@ -20,6 +20,9 @@ const ssrFunc = async (request, response) => {
     const stream = await ssr({
       request
     });
+    const {
+      initialServerData
+    } = stream.partialRenderer.stack[0].children[0].props.context;
     stream.on("data", function handleData() {
       stream.off("data", handleData);
       response.writeHead(200, {
@@ -27,6 +30,11 @@ const ssrFunc = async (request, response) => {
         "content-transfer-encoding": "chunked",
         "x-content-type-options": "nosniff"
       });
+      response.write(
+        `<script>window.__initialServerData__=${JSON.stringify(
+          initialServerData
+        )}</script>`
+      );
       response.write(headerHtmlPage);
       response.flushHeaders();
     });
