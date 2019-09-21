@@ -2,7 +2,7 @@ import React from "react";
 import { IDefaultProps } from "../../interfaces/IDefaultProps";
 
 interface IProps {
-  staticContext?: { initialServerData: { hello?: string } };
+  hello?: string;
 }
 const TodoList: IDefaultProps<IProps> = props => {
   let initialServerData;
