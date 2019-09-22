@@ -4,7 +4,8 @@
   "description": "This is a sample project that I have created for help someone who want to know what SSR is and how RenderToNodeStream and hydration work together.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build && webpack --display-error-details --define process.env.NODE_ENV=production -p && cp src/server.js build/server.js && node build/server"
+    "build": "rm -rf build && webpack --display-error-details --define process.env.NODE_ENV=production -p && cp src/server.js build/server.js && node build/server",
+    "server":"json-server db.json"
   },
   "eslintConfig": {
     "extends": "react-app"
