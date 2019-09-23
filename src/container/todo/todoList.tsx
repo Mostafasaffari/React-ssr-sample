@@ -1,14 +1,17 @@
 import React from "react";
 import { IDefaultProps } from "../../interfaces/IDefaultProps";
+import { getTodoList } from "../../services/todoApi";
 interface IProps {
-  hello?: string;
+  todoList?: any;
 }
 const TodoList: IDefaultProps<IProps> = props => {
-  return <div>TodoList{props.hello}</div>;
+  console.log(props.todoList)
+  return <div>TodoList{props.todoList.map(i => <p>{i.title}</p>)}</div>;
 };
 
-TodoList.initialData = () => {
-  return { hello: "ddd" };
+TodoList.initialData = async () => {
+  const data = await getTodoList();
+  return { todoList: data };
 };
 
 export default TodoList;

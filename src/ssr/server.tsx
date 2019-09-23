@@ -10,7 +10,7 @@ export default async function ssr(options: IOptions) {
   const currentRoute = routeList.find(route =>
     Boolean(matchPath(encodeURI(options.request.url), route))
   );
-  const requestInitialDate =
+  const requestInitialDate = await
     currentRoute &&
     currentRoute.component &&
     currentRoute.component.initialData &&
