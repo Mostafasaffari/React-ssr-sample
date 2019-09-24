@@ -1,8 +1,11 @@
 import React from "react";
+
 import { IDefaultProps } from "../../interfaces/IDefaultProps";
+import { Todo } from "../../entities/todo";
+
 import { getTodoList } from "../../services/todoApi";
 interface IProps {
-  todoList?: any;
+  todoList?: Todo[];
 }
 const TodoList: IDefaultProps<IProps> = props => {
   console.log(props.todoList)
@@ -10,7 +13,7 @@ const TodoList: IDefaultProps<IProps> = props => {
 };
 
 TodoList.initialData = async () => {
-  const data = await getTodoList();
+  const data: Todo[] = await getTodoList();
   return { todoList: data };
 };
 
