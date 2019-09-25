@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf build && webpack --display-error-details --define process.env.NODE_ENV=production -p && cp src/server.js build/server.js && node build/server",
-    "server": "json-server db.json"
+    "server": "json-server db.json",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -63,6 +64,7 @@
     "sass-loader": "^7.3.1",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "size-plugin": "^2.0.0",
+    "standard-version": "^7.0.0",
     "style-loader": "^1.0.0",
     "typescript": "^3.6.2",
     "url-loader": "^2.1.0",
