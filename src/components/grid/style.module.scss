@@ -1,0 +1,25 @@
+.grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+  
+      &-col {
+        display: flex;
+        width: 200px;
+        text-align: left;
+        margin-right: 10px;
+        padding-left: 5px;
+        &--sort {
+          width: 16px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  
