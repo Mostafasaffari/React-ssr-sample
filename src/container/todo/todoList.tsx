@@ -8,7 +8,14 @@ interface IProps {
   todoList?: Todo[];
 }
 const TodoList: IDefaultProps<IProps> = props => {
-  return <div>TodoList{props.todoList.map(i => <p>{i.title}</p>)}</div>;
+  return (
+    <div>
+      TodoList
+      {props.todoList &&
+        props.todoList.length > 0 &&
+        props.todoList.map(i => <p>{i.title}</p>)}
+    </div>
+  );
 };
 
 TodoList.initialData = async () => {
