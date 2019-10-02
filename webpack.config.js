@@ -11,7 +11,8 @@ const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
 
 const isEnvDevelopment = process.env.NODE_ENV === "development";
-const isEnvProduction = process.env.NODE_ENV === "production";
+const isEnvProduction = true;//process.env.NODE_ENV === "production";
+
 
 const appDirectory = fs.realpathSync(process.cwd());
 const appSrcPath = path.resolve(appDirectory, "src");
