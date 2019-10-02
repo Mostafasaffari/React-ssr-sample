@@ -4,10 +4,10 @@ import classnames from "classnames";
 
 interface ISort {
   sort: boolean;
-  sortingColumn: any;
-  onSort: (columnName: any, sortOrder: "asc" | "dsc") => void;
+  sortingColumn: string;
+  onSort: (columnName: string, sortOrder: "asc" | "dsc") => void;
   order: "asc" | "dsc";
-  previusSortColumn: any;
+  previusSortColumn: string;
 }
 
 interface IProps {
