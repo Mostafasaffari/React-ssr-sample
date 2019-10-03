@@ -55,6 +55,9 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
             <Col>
               <span>title</span>
             </Col>
+            <Col>
+              <span>description</span>
+            </Col>
             <Col
               sort={{
                 onSort: sorting,
