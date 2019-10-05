@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { IDefaultProps } from "../../interfaces/IDefaultProps";
 import { Todo } from "../../entities/todo";
 
-import { getTodoList } from "../../services/todoApi";
+import { getTodoList, updateTodoName_api } from "../../services/todoApi";
 import Row from "../../components/grid/row";
 import Col from "../../components/grid/col";
+import Modal from "../../components/modal/modal";
 
 import style from "./style.module.scss";
-
 
 const prefixCls = "home";
 
@@ -17,7 +17,9 @@ interface IProps {
 }
 const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
   const [sortOrder, setSortOrder] = useState<"asc" | "dsc">("asc");
-  const [sortColumn, setSortColumn] = useState();
+  const [sortColumn, setSortColumn] = useState<string>("");
+  const [todoForEdit, setTodoForEdit] = useState<Todo | undefined>(undefined);
+  const [todoTitle, setTodoTitle] = useState<string>("");
 
   const sorting = (columnName: string, sortOrder: "asc" | "dsc") => {
     todoList.sortList(columnName, sortOrder);
@@ -26,16 +28,29 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
   };
   const handleModalEdit = (id: string) => (
     e: React.MouseEvent<HTMLSpanElement>
-  ) => {};
+  ) => {
+    const todo = todoList.find(s => s.id === id);
+    setTodoForEdit(todo);
+    setTodoTitle(todo!.title);
+  };
 
   const handleModal = (id: string) => (
     e: React.MouseEvent<HTMLSpanElement>
-  ) => {
-   
-  };
+  ) => {};
   const handleCloseModal = () => {
-  
+    setTodoForEdit(undefined);
   };
+
+  const handleTodoTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoTitle(e.target.value);
+  };
+  const handleEditName = async () => {
+    todoForEdit!.title = todoTitle;
+    await updateTodoName_api(todoForEdit!.id, todoForEdit!);
+    setTodoForEdit(undefined);
+    setTodoTitle("");
+  };
+
   return (
     <React.Fragment>
       <div className={style[`${prefixCls}-wrapper`]}>
@@ -105,6 +120,23 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
             ))}
         </div>
       </div>
+      {todoForEdit && (
+        <Modal
+          showModal={todoForEdit && Object.keys(todoForEdit).length > 0}
+          handleCloseModal={handleCloseModal}
+        >
+          <div className={style[`${prefixCls}-show`]}>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              value={todoTitle}
+              onChange={handleTodoTitle}
+              type="text"
+            />
+            <button onClick={handleEditName}>Change Name</button>
+          </div>
+        </Modal>
+      )}
     </React.Fragment>
   );
 };
