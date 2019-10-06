@@ -6,8 +6,8 @@ import { Todo } from "../../entities/todo";
 import { getTodoList, updateTodoName_api } from "../../services/todoApi";
 import Row from "../../components/grid/row";
 import Col from "../../components/grid/col";
-import Modal from "../../components/modal/modal";
-import Button from "../../components/button/button";
+import Modal from "../../components/modal";
+import Button from "../../components/button";
 
 import style from "./style.module.scss";
 
