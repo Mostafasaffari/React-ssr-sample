@@ -20,6 +20,7 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
   const [sortColumn, setSortColumn] = useState<string>("");
   const [todoForEdit, setTodoForEdit] = useState<Todo | undefined>(undefined);
   const [todoTitle, setTodoTitle] = useState<string>("");
+  const [todoSelected, setTodoSelected] = useState<Todo | undefined>(undefined);
 
   const sorting = (columnName: string, sortOrder: "asc" | "dsc") => {
     todoList.sortList(columnName, sortOrder);
@@ -36,9 +37,13 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
 
   const handleModal = (id: string) => (
     e: React.MouseEvent<HTMLSpanElement>
-  ) => {};
+  ) => {
+    const todo = todoList.find(s => s.id === id);
+    setTodoSelected(todo);
+  };
   const handleCloseModal = () => {
     setTodoForEdit(undefined);
+    setTodoSelected(undefined);
   };
 
   const handleTodoTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,6 +125,20 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
             ))}
         </div>
       </div>
+      {todoSelected && (
+        <Modal
+          showModal={todoSelected && Object.keys(todoSelected).length > 0}
+          handleCloseModal={handleCloseModal}
+        >
+          <div className={style[`${prefixCls}-show`]}>
+            <h4>{todoSelected.title}</h4>
+            <hr />
+            <span>{todoSelected.description}</span>
+            <span>{new Date(todoSelected.date).toDateString()}</span>
+          </div>
+        </Modal>
+      )}
+
       {todoForEdit && (
         <Modal
           showModal={todoForEdit && Object.keys(todoForEdit).length > 0}
