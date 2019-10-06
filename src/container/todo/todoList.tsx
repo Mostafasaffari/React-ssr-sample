@@ -10,6 +10,7 @@ import Modal from "../../components/modal";
 import Button from "../../components/button";
 
 import style from "./style.module.scss";
+import Input from "../../components/input/input";
 
 const prefixCls = "home";
 
@@ -147,11 +148,10 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
         >
           <div className={style[`${prefixCls}-show`]}>
             <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              value={todoTitle}
-              onChange={handleTodoTitle}
+            <Input
               type="text"
+              onChange={handleTodoTitle}
+              defaultValue={todoTitle}
             />
             <Button onClick={handleEditName} type="button" text="Change" />
           </div>
