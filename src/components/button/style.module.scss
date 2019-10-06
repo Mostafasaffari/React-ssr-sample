@@ -1,0 +1,11 @@
+@import "../../default.scss";
+
+.button {
+  height: 40px;
+  background-color: $primary-color-verylight;
+  color: #000;
+  border: 2px solid $primary-color;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}

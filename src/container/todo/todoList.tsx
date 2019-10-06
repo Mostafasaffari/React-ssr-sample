@@ -7,6 +7,7 @@ import { getTodoList, updateTodoName_api } from "../../services/todoApi";
 import Row from "../../components/grid/row";
 import Col from "../../components/grid/col";
 import Modal from "../../components/modal/modal";
+import Button from "../../components/button/button";
 
 import style from "./style.module.scss";
 
@@ -152,7 +153,7 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
               onChange={handleTodoTitle}
               type="text"
             />
-            <button onClick={handleEditName}>Change Name</button>
+            <Button onClick={handleEditName} type="button" text="Change" />
           </div>
         </Modal>
       )}
