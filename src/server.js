@@ -30,12 +30,12 @@ const ssrFunc = async (request, response) => {
         "content-transfer-encoding": "chunked",
         "x-content-type-options": "nosniff"
       });
+      response.write(headerHtmlPage);
       response.write(
         `<script>window.__initialServerData__=${JSON.stringify(
           initialServerData
         )}</script>`
       );
-      response.write(headerHtmlPage);
       response.flushHeaders();
     });
     await new Promise((resolve, reject) => {

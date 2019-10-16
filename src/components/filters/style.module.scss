@@ -1,0 +1,11 @@
+@import "../../default.scss";
+
+.filters-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  padding: 10px;
+  height: 50px;
+  border: 2px solid $primary-color;
+  border-radius: $border-radius-base;
+}

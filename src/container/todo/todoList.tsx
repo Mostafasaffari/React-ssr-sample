@@ -119,7 +119,7 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
                   </span>
                 </Col>
                 <Col className={style[`${prefixCls}-todolist-body--action`]}>
-                  <span onClick={handleModal(item.id)} id={item.id}>
+                  <span onClick={handleModal(item.id)} id={`detail-${item.id}`}>
                     Detail
                   </span>
                 </Col>
