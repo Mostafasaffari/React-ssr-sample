@@ -11,6 +11,7 @@ import Button from "../../components/button";
 
 import style from "./style.module.scss";
 import Input from "../../components/input/input";
+import Filters from "../../components/filters/filters";
 
 const prefixCls = "home";
 
@@ -23,6 +24,7 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
   const [todoForEdit, setTodoForEdit] = useState<Todo | undefined>(undefined);
   const [todoTitle, setTodoTitle] = useState<string>("");
   const [todoSelected, setTodoSelected] = useState<Todo | undefined>(undefined);
+  const [filterTodoList, setFilterTodoList] = useState<Todo[]>(todoList);
 
   const sorting = (columnName: string, sortOrder: "asc" | "dsc") => {
     todoList.sortList(columnName, sortOrder);
@@ -57,11 +59,27 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
     setTodoForEdit(undefined);
     setTodoTitle("");
   };
+  const handleFilterSubmition = (title: string, description: string) => {
+    if (title || description) {
+      const newList = todoList.filter(s => {
+        if (title) return s.title.toLowerCase().includes(title.toLowerCase());
+        else if (description)
+          return s.description
+            .toLowerCase()
+            .includes(description.toLowerCase());
+        else return false;
+      });
+      setFilterTodoList(newList);
+    } else {
+      setFilterTodoList(todoList);
+    }
+  };
 
   return (
     <React.Fragment>
       <div className={style[`${prefixCls}-wrapper`]}>
         <div className={style[`${prefixCls}-todolist`]}>
+          <Filters onSubmitFilter={handleFilterSubmition} />
           <Row className={style[`${prefixCls}-todolist--head`]}>
             <Col
               sort={{
@@ -98,9 +116,9 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
               <span>Detail</span>
             </Col>
           </Row>
-          {todoList &&
-            todoList.length &&
-            todoList.map((item, index) => (
+          {filterTodoList &&
+            filterTodoList instanceof Array &&
+            filterTodoList.map((item, index) => (
               <Row
                 key={index}
                 className={
