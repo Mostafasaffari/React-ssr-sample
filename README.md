@@ -5,6 +5,7 @@ For run project follow below instruction.
 
 In the project directory:
 
+### `npm install`
 ### `npm run server`
 ### `npm run build`
 
