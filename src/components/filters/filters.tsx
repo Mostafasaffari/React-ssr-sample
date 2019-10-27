@@ -19,18 +19,21 @@ const Filters: React.FC<IProps> = ({ onSubmitFilter }) => {
   const handleSetFilter = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    e.preventDefault();
     onSubmitFilter(title, description);
   };
   return (
-    <div className={style["filters-wrapper"]}>
+    <form className={style["filters-wrapper"]}>
       <input type="text" placeholder="Task Title" onChange={setTitle} />
       <input
         type="text"
         placeholder="Task Description"
         onChange={setDescription}
       />
-      <button onClick={handleSetFilter}>Filter</button>
-    </div>
+      <button type="submit" onClick={handleSetFilter}>
+        Filter
+      </button>
+    </form>
   );
 };
 

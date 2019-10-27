@@ -3,9 +3,33 @@
 .filters-wrapper {
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 100%;
+  max-width: 600px;
   padding: 10px;
-  height: 50px;
+  height: 70px;
   border: 2px solid $primary-color;
   border-radius: $border-radius-base;
+  box-sizing: border-box;
+  @media only screen and (max-width: 700px) {
+    flex-direction: column;
+    height: 200px;
+  }
+  button {
+    width: 70px;
+    height: 40px;
+    @media only screen and (max-width: 700px) {
+      width: 120px;
+    }
+    border-radius: 5px;
+  }
+  input {
+    padding: 10px;
+    width: 100%;
+    margin: 0 10px;
+    box-sizing: border-box;
+    height: 40px;
+    @media only screen and (max-width: 700px) {
+      margin: 10px 0;
+    }
+  }
 }
