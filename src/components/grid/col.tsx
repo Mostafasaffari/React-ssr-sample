@@ -1,14 +1,8 @@
 import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import classnames from "classnames";
+import { ISort } from "../../interfaces/ISort";
 
-interface ISort {
-  sort: boolean;
-  sortingColumn: string;
-  onSort: (columnName: string, sortOrder: "asc" | "dsc") => void;
-  order: "asc" | "dsc";
-  previusSortColumn: string;
-}
 
 interface IProps {
   children: ReactNode;
