@@ -1,25 +1,44 @@
 .grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &-head {
+    height: 30px;
+    border-bottom: 1px solid $primary-color;
+    font-weight: bold;
+    font-size: $font-size-base;
+    &--action {
+      width: 70px;
+    }
+  }
+
+  &-body {
+    &--action {
+      width: 70px;
+      color: $link-color;
+      cursor: pointer;
+    }
+    &--alter {
+      background-color: $primary-color-verylight;
+    }
+  }
+  &-row {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    &-row {
+    padding: 10px 0;
+
+    &-col {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px 0;
-  
-      &-col {
-        display: flex;
-        width: 200px;
-        text-align: left;
-        margin-right: 10px;
-        padding-left: 5px;
-        &--sort {
-          width: 16px;
-          cursor: pointer;
-        }
+      width: 200px;
+      text-align: left;
+      margin-right: 10px;
+      padding-left: 5px;
+      &--sort {
+        width: 16px;
+        cursor: pointer;
       }
     }
   }
-  
+}

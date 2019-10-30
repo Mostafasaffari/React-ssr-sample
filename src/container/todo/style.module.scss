@@ -11,23 +11,6 @@
     margin: 20px;
     padding: 5px;
     width: 100%;
-    &--head {
-      height: 30px;
-      border-bottom: 1px solid $primary-color;
-      font-weight: bold;
-      font-size: $font-size-base;
-    }
-    &--action {
-      width: 70px;
-    }
-    &-body--action {
-      width: 70px;
-      color: $link-color;
-      cursor: pointer;
-    }
-    &-body--alter {
-      background-color: $primary-color-verylight;
-    }
   }
 }
 
