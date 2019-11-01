@@ -39,32 +39,73 @@ const Grid: React.FC<IProps> = ({
   };
 
   return (
-    <Row className={style[`${prefixCls}-head`]}>
-      {columns.length > 0 &&
-        columns.map((item, index) => {
-          <Col
-            sort={{
-              onSort: sorting,
-              sortingColumn: item.sortingColumn ? item.sortingColumn : "",
-              order: sortOrder.order || "asc",
-              sort: item.sortingColumn ? true : false,
-              previusSortColumn: sortOrder.fieldName
-            }}
+    <div className={style[`${prefixCls}`]}>
+      <Row className={style[`${prefixCls}-head`]}>
+        {columns.length > 0 &&
+          columns.map((item, index) => {
+            <Col
+              key={index}
+              sort={{
+                onSort: sorting,
+                sortingColumn: item.sortingColumn ? item.sortingColumn : "",
+                order: sortOrder.order || "asc",
+                sort: item.sortingColumn ? true : false,
+                previusSortColumn: sortOrder.fieldName
+              }}
+            >
+              <span>{item.name}</span>
+            </Col>;
+          })}
+        {onEdit && (
+          <Col className={style[`${prefixCls}-head--action`]}>
+            <span>Edit</span>
+          </Col>
+        )}
+        {onDetail && (
+          <Col className={style[`${prefixCls}-head--action`]}>
+            <span>Detail</span>
+          </Col>
+        )}
+        {onDelete && (
+          <Col className={style[`${prefixCls}-head--action`]}>
+            <span>Delete</span>
+          </Col>
+        )}
+      </Row>
+      {data &&
+        data.map((item, index) => (
+          <Row
+            key={index}
+            className={index % 2 === 0 ? style[`${prefixCls}-body--alter`] : ""}
           >
-            <span>{item.name}</span>
-          </Col>;
-        })}
-      {onEdit && (
-        <Col className={style[`${prefixCls}-head--action`]}>
-          <span>Edit</span>
-        </Col>
-      )}
-      {onDetail && (
-        <Col className={style[`${prefixCls}-head--action`]}>
-          <span>Detail</span>
-        </Col>
-      )}
-    </Row>
+            <Col>{item.id}</Col>
+            <Col>{item.title}</Col>
+            <Col>{item.description}</Col>
+            <Col>{item.date}</Col>
+            {onEdit && (
+              <Col className={style[`${prefixCls}-body--action`]}>
+                <span onClick={onEdit(item.id)} id={`edit-${item.id}`}>
+                  Edit
+                </span>
+              </Col>
+            )}
+            {onDetail && (
+              <Col className={style[`${prefixCls}-body--action`]}>
+                <span onClick={onDetail(item.id)} id={`detail-${item.id}`}>
+                  Detail
+                </span>
+              </Col>
+            )}
+            {onDelete && (
+              <Col className={style[`${prefixCls}-head--action`]}>
+                <span onClick={onDelete(item.id)} id={`delete-${item.id}`}>
+                  Detail
+                </span>
+              </Col>
+            )}
+          </Row>
+        ))}
+    </div>
   );
 };
 export default Grid;

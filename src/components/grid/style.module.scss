@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1280px;
+  margin: 20px;
+  padding: 5px;
+  width: 100%;
   &-head {
     height: 30px;
     border-bottom: 1px solid $primary-color;
