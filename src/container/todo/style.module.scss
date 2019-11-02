@@ -1,9 +1,9 @@
-@import "../../default.scss";
-
 .home-wrapper {
   display: flex;
   width: 100%;
   justify-content: center;
+  flex-direction: column;
+  padding: 50px 25px 0;
 }
 
 .home-show {

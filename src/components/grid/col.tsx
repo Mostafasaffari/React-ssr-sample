@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import style from "./style.module.scss";
 import classnames from "classnames";
-import { ISort } from "../../interfaces/ISort";
+import { ISort } from "../../interfaces/GridInterfaces";
 
 
 interface IProps {

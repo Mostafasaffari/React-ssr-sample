@@ -5,3 +5,10 @@ export interface ISort {
   order: "asc" | "dsc";
   previusSortColumn: string;
 }
+
+export interface IColumn {
+  name: string;
+  sortingColumn?: string;
+  sortOrderDefault: "asc" | "desc";
+  fieldName: string;
+}

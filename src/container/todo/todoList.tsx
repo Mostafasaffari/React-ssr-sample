@@ -12,25 +12,45 @@ import Button from "../../components/button";
 import style from "./style.module.scss";
 import Input from "../../components/input/input";
 import Filters from "../../components/filters/filters";
+import Grid from "../../components/grid";
+import { IColumn } from "../../interfaces/GridInterfaces";
 
 const prefixCls = "home";
+
+const todoListColumn: IColumn[] = [
+  {
+    fieldName: "id",
+    name: "Id",
+    sortOrderDefault: "asc",
+    sortingColumn: "id"
+  },
+  {
+    fieldName: "title",
+    name: "Title",
+    sortOrderDefault: "asc"
+  },
+  {
+    fieldName: "description",
+    name: "Description",
+    sortOrderDefault: "asc"
+  },
+  {
+    fieldName: "date",
+    name: "Date",
+    sortOrderDefault: "asc",
+    sortingColumn: "date"
+  }
+];
 
 interface IProps {
   todoList: Todo[];
 }
 const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
-  const [sortOrder, setSortOrder] = useState<"asc" | "dsc">("asc");
-  const [sortColumn, setSortColumn] = useState<string>("");
   const [todoForEdit, setTodoForEdit] = useState<Todo | undefined>(undefined);
   const [todoTitle, setTodoTitle] = useState<string>("");
   const [todoSelected, setTodoSelected] = useState<Todo | undefined>(undefined);
   const [filterTodoList, setFilterTodoList] = useState<Todo[]>(todoList);
 
-  const sorting = (columnName: string, sortOrder: "asc" | "dsc") => {
-    todoList.sortList(columnName, sortOrder);
-    setSortColumn(columnName);
-    setSortOrder(sortOrder);
-  };
   const handleModalEdit = (id: string) => (
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
@@ -78,72 +98,13 @@ const TodoList: IDefaultProps<IProps> = ({ todoList }) => {
   return (
     <React.Fragment>
       <div className={style[`${prefixCls}-wrapper`]}>
-        <div className={style[`${prefixCls}-todolist`]}>
-          <Filters onSubmitFilter={handleFilterSubmition} />
-          <Row className={style[`${prefixCls}-todolist--head`]}>
-            <Col
-              sort={{
-                onSort: sorting,
-                sortingColumn: "id",
-                order: sortOrder || "asc",
-                sort: true,
-                previusSortColumn: sortColumn
-              }}
-            >
-              <span>Id</span>
-            </Col>
-            <Col>
-              <span>title</span>
-            </Col>
-            <Col>
-              <span>description</span>
-            </Col>
-            <Col
-              sort={{
-                onSort: sorting,
-                sortingColumn: "description",
-                order: sortOrder || "asc",
-                sort: true,
-                previusSortColumn: sortColumn
-              }}
-            >
-              <span>date</span>
-            </Col>
-            <Col className={style[`${prefixCls}-todolist--action`]}>
-              <span>Edit</span>
-            </Col>
-            <Col className={style[`${prefixCls}-todolist--action`]}>
-              <span>Detail</span>
-            </Col>
-          </Row>
-          {filterTodoList &&
-            filterTodoList instanceof Array &&
-            filterTodoList.map((item, index) => (
-              <Row
-                key={index}
-                className={
-                  index % 2 === 0
-                    ? style[`${prefixCls}-todolist-body--alter`]
-                    : ""
-                }
-              >
-                <Col>{item.id}</Col>
-                <Col>{item.title}</Col>
-                <Col>{item.description}</Col>
-                <Col>{item.date}</Col>
-                <Col className={style[`${prefixCls}-todolist-body--action`]}>
-                  <span onClick={handleModalEdit(item.id)} id={item.id}>
-                    Edit
-                  </span>
-                </Col>
-                <Col className={style[`${prefixCls}-todolist-body--action`]}>
-                  <span onClick={handleModal(item.id)} id={`detail-${item.id}`}>
-                    Detail
-                  </span>
-                </Col>
-              </Row>
-            ))}
-        </div>
+        <Filters onSubmitFilter={handleFilterSubmition} />
+        <Grid
+          columns={todoListColumn}
+          data={filterTodoList}
+          onDetail={handleModal}
+          onEdit={handleModalEdit}
+        />
       </div>
       {todoSelected && (
         <Modal

@@ -4,13 +4,7 @@ import Row from "./row";
 import Col from "./col";
 
 import style from "./style.module.scss";
-
-interface IColumn {
-  name: string;
-  sortingColumn?: string;
-  sortOrderDefault: "asc" | "desc";
-  fieldName: string;
-}
+import { IColumn } from "../../interfaces/GridInterfaces";
 
 interface IProps {
   columns: IColumn[];
@@ -42,7 +36,7 @@ const Grid: React.FC<IProps> = ({
     <div className={style[`${prefixCls}`]}>
       <Row className={style[`${prefixCls}-head`]}>
         {columns.length > 0 &&
-          columns.map((item, index) => {
+          columns.map((item, index) => (
             <Col
               key={index}
               sort={{
@@ -54,8 +48,8 @@ const Grid: React.FC<IProps> = ({
               }}
             >
               <span>{item.name}</span>
-            </Col>;
-          })}
+            </Col>
+          ))}
         {onEdit && (
           <Col className={style[`${prefixCls}-head--action`]}>
             <span>Edit</span>
@@ -78,10 +72,10 @@ const Grid: React.FC<IProps> = ({
             key={index}
             className={index % 2 === 0 ? style[`${prefixCls}-body--alter`] : ""}
           >
-            <Col>{item.id}</Col>
-            <Col>{item.title}</Col>
-            <Col>{item.description}</Col>
-            <Col>{item.date}</Col>
+            {columns.length > 0 &&
+              columns.map((col, colIndex) => (
+                <Col key={colIndex}>{item[col.fieldName]}</Col>
+              ))}
             {onEdit && (
               <Col className={style[`${prefixCls}-body--action`]}>
                 <span onClick={onEdit(item.id)} id={`edit-${item.id}`}>
